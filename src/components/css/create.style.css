@@ -1,0 +1,14 @@
+#root{
+    padding-top: 20px;
+
+}
+.create-card{
+    /* border: 2px solid; */
+    padding: 10px 100px 10px 100px;
+
+}
+
+.create-footer{
+    display: flex;
+    justify-content: space-evenly;
+}

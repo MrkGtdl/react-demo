@@ -1,0 +1,14 @@
+#root{
+    padding-top: 20px;
+
+}
+.edit-card{
+    /* border: 2px solid; */
+    padding: 10px 100px 10px 100px;
+
+}
+
+.edit-footer{
+    display: flex;
+    justify-content: space-evenly;
+}
