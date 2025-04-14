@@ -1,36 +1,45 @@
-import React, { useState } from 'react'
-import { todo } from './todo.type'
-import './css/create.style.css'
+import React, { useState } from "react";
+import { todo } from "./todo.type";
+import "./css/create.style.css";
 
 // Set props to be passed on to another component
 type Props = {
-  onBackBtnClickHnd: () => void
-  onSubmitClkHnd: (data: todo) => void
-}
+  onBackBtnClickHnd: () => void;
+  onSubmitClkHnd: (data: todo) => void;
+};
 
 const AddToDo = (props: Props) => {
   // track state in a function component.
-  const [description, setDesc] = useState('')
+  const [user, setUser] = useState("");
+  const [description, setDesc] = useState("");
+  const [priority, setPrio] = useState("High");
 
   // declare the props
-  const { onBackBtnClickHnd, onSubmitClkHnd } = props
+  const { onBackBtnClickHnd, onSubmitClkHnd } = props;
 
   // function that is responsible for setting the setstate
+  const onUserChange = (e: any) => {
+    setUser(e.target.value);
+  };
+
   const onDescChange = (e: any) => {
-    setDesc(e.target.value)
-  }
+    setDesc(e.target.value);
+  };
 
   // function that is responsible for storing the data into the variable
   const onSubmitbtnClkHnd = (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
     const data: todo = {
-      id: new Date().toJSON().toString(),
+      user: user,
+      id: new Date().toLocaleTimeString(),
       description: description,
-      status: 'In Progress',
-    }
-    onSubmitClkHnd(data)
-    onBackBtnClickHnd()
-  }
+      priority: priority,
+      status: "In Progress",
+      checked: false,
+    };
+    onSubmitClkHnd(data);
+    onBackBtnClickHnd();
+  };
 
   return (
     <>
@@ -40,10 +49,31 @@ const AddToDo = (props: Props) => {
           <div>
             <input
               type="text"
+              value={user}
+              onChange={onUserChange}
+              placeholder="User"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
               value={description}
               onChange={onDescChange}
               placeholder="TO-DO Description"
             />
+          </div>
+          <div>
+            <label>
+              Priority Level:
+              <select
+                value={priority}
+                onChange={(e) => setPrio(e.target.value)}
+              >
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </label>
           </div>
           <br />
           <div className="create-footer">
@@ -53,7 +83,7 @@ const AddToDo = (props: Props) => {
         </form>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default AddToDo
+export default AddToDo;

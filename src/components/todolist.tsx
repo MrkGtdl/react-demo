@@ -1,40 +1,44 @@
-import React, { useState } from 'react'
-import { todo } from './todo.type'
-import ViewModal from './viewModal'
+import React, { useState } from "react";
+import { todo } from "./todo.type";
+import ViewModal from "./viewModal";
 
 type Props = {
-  list: todo[]
-  onDeleteClkHnd: (data: todo) => void
-  onEdit: (data: todo) => void
-}
+  list: todo[];
+  onDeleteClkHnd: (data: todo) => void;
+  onEdit: (data: todo) => void;
+};
 
 const List = (props: Props) => {
-  const { list, onDeleteClkHnd, onEdit } = props
-  const [displayModal, setDisplayModal] = useState(false)
+  const { list, onDeleteClkHnd, onEdit } = props;
+  const [displayModal, setDisplayModal] = useState(false);
   const viewRecord = (data: todo) => {
-    setDataToshow(data)
-    setDisplayModal(true)
-  }
+    setDataToshow(data);
+    setDisplayModal(true);
+  };
   const onCloseModal = () => {
-    setDisplayModal(false)
-  }
-  const [dataToShow, setDataToshow] = useState(null as todo | null)
+    setDisplayModal(false);
+  };
+  const [dataToShow, setDataToshow] = useState(null as todo | null);
 
   return (
     <div>
       <table>
         <tr>
-          <th>Date</th>
+          <th>User</th>
           <th>Description</th>
           <th>Status</th>
+          <th>Level</th>
+          <th>Time</th>
           <th>Actions</th>
         </tr>
         {list.map((list) => {
           return (
             <tr key={list.id}>
-              <td>{`${list.id}`}</td>
+              <td>{`${list.user}`}</td>
               <td>{`${list.description}`}</td>
               <td>{`${list.status}`}</td>
+              <td>{`${list.priority}`}</td>
+              <td>{`${list.id}`}</td>
               <td>
                 <div>
                   <input
@@ -55,14 +59,14 @@ const List = (props: Props) => {
                 </div>
               </td>
             </tr>
-          )
+          );
         })}
       </table>
       {displayModal && dataToShow !== null && (
         <ViewModal onClose={onCloseModal} data={dataToShow} />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;
