@@ -42,9 +42,15 @@ const AddToDo = (props: Props) => {
 
     onSubmitClkHnd(data);
     onBackBtnClickHnd();
+
     useListContext.setTodolist((c: any) => {
+      
       return [...c, data];
     });
+    
+    console.log("useListContext1",useListContext)
+
+    // window.localStorage.setItem("list", JSON.stringify(data));
   };
 
   return (

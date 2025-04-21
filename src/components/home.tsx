@@ -10,7 +10,7 @@ import { ListContext } from "./listContext";
 
 const Home = () => {
   const useListContext = useContext(ListContext);
-  const [list, todoList] = useState([] as todo[]);
+  const [list, listTodo] = useState([] as todo[]);
   const [createPage, setCreate] = useState(PageList.list);
   const [editPage, setEdit] = useState({} as todo);
 
@@ -19,9 +19,10 @@ const Home = () => {
   };
 
   // store the ata into the localstorage
-  const _setTodoList = (list: todo[]) => {
-    todoList(list);
-    window.localStorage.setItem("list", JSON.stringify(list));
+  const _setTodoList = (SetMtodolist: todo[]) => {
+    // todoList(todolistContext);
+
+    // window.localStorage.setItem("list", JSON.stringify(todolistContext));
   };
 
   useEffect(() => {

@@ -22,7 +22,7 @@ const List = (props: Props) => {
     setDisplayModal(false);
   };
   const [dataToShow, setDataToshow] = useState(null as todo | null);
-  console.log(useListContext);
+
   return (
     <div>
       <table>
