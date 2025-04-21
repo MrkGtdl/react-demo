@@ -1,12 +1,15 @@
-import './index.css'
+import "./index.css";
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Home from './components/home'
+import React from "react";
+import ReactDOM from "react-dom";
+import Home from "./components/home";
+import { ListContextProvider } from "./components/listContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Home />
+    <ListContextProvider>
+      <Home />
+    </ListContextProvider>
   </React.StrictMode>,
-  document.getElementById('root'),
-)
+  document.getElementById("root")
+);

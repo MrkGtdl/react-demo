@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { todo } from "./todo.type";
 import ViewModal from "./viewModal";
+import { ListContext } from "./listContext";
 
 type Props = {
   list: todo[];
@@ -9,6 +10,8 @@ type Props = {
 };
 
 const List = (props: Props) => {
+  const useListContext = useContext(ListContext);
+  // console.log("useListContext", useListContext.todolist.map(c));
   const { list, onDeleteClkHnd, onEdit } = props;
   const [displayModal, setDisplayModal] = useState(false);
   const viewRecord = (data: todo) => {
@@ -19,7 +22,7 @@ const List = (props: Props) => {
     setDisplayModal(false);
   };
   const [dataToShow, setDataToshow] = useState(null as todo | null);
-
+  console.log(useListContext);
   return (
     <div>
       <table>
@@ -31,7 +34,37 @@ const List = (props: Props) => {
           <th>Time</th>
           <th>Actions</th>
         </tr>
-        {list.map((list) => {
+        {useListContext.todolist.map((c: any) => {
+          return (
+            <tr>
+              <td>{JSON.parse(JSON.stringify(c.user))}</td>
+              <td>{JSON.parse(JSON.stringify(c.description))}</td>
+              <td>{JSON.parse(JSON.stringify(c.status))}</td>
+              <td>{JSON.parse(JSON.stringify(c.priority))}</td>
+              <td>{JSON.parse(JSON.stringify(c.id))}</td>
+              <td>
+                <div>
+                  <input
+                    type="button"
+                    value="View"
+                    // onClick={() => viewRecord(list)}
+                  />
+                  <input
+                    type="button"
+                    value="Update"
+                    // onClick={() => onEdit(list)}
+                  />
+                  <input
+                    type="button"
+                    value="Delete"
+                    // onClick={() => onDeleteClkHnd(list)}
+                  />
+                </div>
+              </td>
+            </tr>
+          );
+        })}
+        {/* {list.map((list) => {
           return (
             <tr key={list.id}>
               <td>{`${list.user}`}</td>
@@ -60,7 +93,7 @@ const List = (props: Props) => {
               </td>
             </tr>
           );
-        })}
+        })} */}
       </table>
       {displayModal && dataToShow !== null && (
         <ViewModal onClose={onCloseModal} data={dataToShow} />

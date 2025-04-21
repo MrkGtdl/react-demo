@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { todo } from "./todo.type";
 import "./css/create.style.css";
+import { ListContext } from "./listContext";
 
 // Set props to be passed on to another component
 type Props = {
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const AddToDo = (props: Props) => {
+  const useListContext = useContext(ListContext);
   // track state in a function component.
   const [user, setUser] = useState("");
   const [description, setDesc] = useState("");
@@ -37,8 +39,12 @@ const AddToDo = (props: Props) => {
       status: "In Progress",
       checked: false,
     };
+
     onSubmitClkHnd(data);
     onBackBtnClickHnd();
+    useListContext.setTodolist((c: any) => {
+      return [...c, data];
+    });
   };
 
   return (
