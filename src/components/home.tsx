@@ -4,9 +4,10 @@ import { todo, PageList } from "./todo.type";
 import List from "./todolist";
 import React from "react";
 import AddToDo from "./create";
+import NewCreate from "./newCreate";
 import EditRecord from "./edit";
 import "./css/home.style.css";
-import { ListContext } from "./listContext";
+import { ListContext } from "./ListContext";
 
 const Home = () => {
   const useListContext = useContext(ListContext);
@@ -17,51 +18,51 @@ const Home = () => {
   const addTodoClick = () => {
     setCreate(PageList.add);
   };
-
+  console.log(useListContext.todoList)
   // store the ata into the localstorage
-  const _setTodoList = (SetMtodolist: todo[]) => {
-    // todoList(todolistContext);
+  // const _setTodoList = (list: todo[]) => {
+  // todoList(todolistContext);
 
-    // window.localStorage.setItem("list", JSON.stringify(todolistContext));
-  };
+  // window.localStorage.setItem("list", JSON.stringify(todolistContext));
+  // };
 
-  useEffect(() => {
-    const listResult = window.localStorage.getItem("list");
-    if (listResult) {
-      _setTodoList(JSON.parse(listResult));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const listResult = window.localStorage.getItem("list");
+  //   if (listResult) {
+  //     _setTodoList(JSON.parse(listResult));
+  //   }
+  // }, []);
 
-  const showListSection = () => {
-    setCreate(PageList.list);
-  };
-  const addData = (data: todo) => {
-    _setTodoList([...list, data]);
-  };
-  const deleteRecord = (data: todo) => {
-    const indexToDelete = list.indexOf(data);
-    const tempList = [...list];
+  // const showListSection = () => {
+  //   setCreate(PageList.list);
+  // };
+  // const addData = (data: todo) => {
+  //   _setTodoList([...list, data]);
+  // };
+  // const deleteRecord = (data: todo) => {
+  //   const indexToDelete = list.indexOf(data);
+  //   const tempList = [...list];
 
-    tempList.splice(indexToDelete, 1);
-    _setTodoList(tempList);
-  };
+  //   tempList.splice(indexToDelete, 1);
+  //   _setTodoList(tempList);
+  // };
 
-  const editData = (data: todo) => {
-    setCreate(PageList.edit);
-    setEdit(data);
-  };
+  // const editData = (data: todo) => {
+  //   setCreate(PageList.edit);
+  //   setEdit(data);
+  // };
 
-  // function for updating the data
-  const updateData = (data: todo) => {
-    const filteredData = list.filter((x) => x.id === data.id)[0];
+  // // function for updating the data
+  // const updateData = (data: todo) => {
+  //   const filteredData = list.filter((x) => x.id === data.id)[0];
 
-    const indexedRecord = list.indexOf(filteredData);
+  //   const indexedRecord = list.indexOf(filteredData);
 
-    const tempdata = [...list];
+  //   const tempdata = [...list];
 
-    tempdata[indexedRecord] = data;
-    _setTodoList(tempdata);
-  };
+  //   tempdata[indexedRecord] = data;
+  //   _setTodoList(tempdata);
+  // };
   return (
     <>
       <div className="card">
@@ -80,27 +81,34 @@ const Home = () => {
                 <input type="button" value="Create" onClick={addTodoClick} />
                 <List
                   list={list}
-                  onDeleteClkHnd={deleteRecord}
-                  onEdit={editData}
+                // onDeleteClkHnd={deleteRecord}
+                // onEdit={editData}
                 />
               </div>
             </>
           )}
 
-          {createPage === PageList.add && (
+          {/* {createPage === PageList.add && (
             <AddToDo
               onBackBtnClickHnd={showListSection}
               onSubmitClkHnd={addData}
             />
+          )} */}
+
+          {createPage === PageList.add && (
+            <NewCreate
+            />
           )}
 
-          {createPage === PageList.edit && (
+
+
+          {/* {createPage === PageList.edit && (
             <EditRecord
               data={editPage}
               onBackBtnClickHnd={showListSection}
               onUpdateClkHnd={updateData}
             />
-          )}
+          )} */}
         </section>
       </div>
     </>

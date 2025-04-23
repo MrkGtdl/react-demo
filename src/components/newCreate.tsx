@@ -1,37 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react'
 import { todo } from "./todo.type";
 import "./css/create.style.css";
 import { ListContext } from "./ListContext";
 
 
-// Set props to be passed on to another component
-type Props = {
-  onBackBtnClickHnd: () => void;
-  onSubmitClkHnd: (data: todo) => void;
-};
-
-const AddToDo = (props: Props) => {
+function NewCreate() {
   const useListContext = useContext(ListContext);
-  // track state in a function component.
+
+  const listResult = window.localStorage.getItem("list");
+
+  // const [list, setListTodo] = useState<todo[]>(listResult ? JSON.parse(listResult) : []);
   const [user, setUser] = useState("");
   const [description, setDesc] = useState("");
   const [priority, setPrio] = useState("High");
 
-  // declare the props
-  const { onBackBtnClickHnd, onSubmitClkHnd } = props;
 
-  // function that is responsible for setting the setstate
-  const onUserChange = (e: any) => {
-    setUser(e.target.value);
-  };
-
-  const onDescChange = (e: any) => {
-    setDesc(e.target.value);
-  };
-
-  // function that is responsible for storing the data into the variable
   const onSubmitbtnClkHnd = (e: any) => {
     e.preventDefault();
+
+
     const data: todo = {
       user: user,
       id: new Date().toLocaleTimeString(),
@@ -41,37 +28,45 @@ const AddToDo = (props: Props) => {
       checked: false,
     };
 
-    onSubmitClkHnd(data);
-    onBackBtnClickHnd();
-
-    useListContext.setTodolist((c: any) => {
-      console.log("data",data)
-      return [...c, data];
-    });
-    
+    useListContext.setTodolist(data)
+    // setListTodo([...list, data])
 
 
-    // window.localStorage.setItem("list", JSON.stringify(data));
+
+    // useListContext.setTodolist((c: any) => {
+    //   console.log("c", c)
+
+    // });
+
+    // const _setTodoList = (data: todo[]) => {
+    //   todoList(data);
+    //   window.localStorage.setItem("list", JSON.stringify(data));
+    // };
+
+    // useListContext.setTodolist((c: any) => {
+    //   console.log("data", data)
+    //   return [...c, data];
+    // });
+
   };
-
+  console.log("useListContext", useListContext)
   return (
     <>
       <div className="create-card">
         <h2>Create to do?</h2>
+        {/* <p>{JSON.stringify(list)}</p> */}
         <form onSubmit={onSubmitbtnClkHnd}>
           <div>
             <input
               type="text"
-              value={user}
-              onChange={onUserChange}
+              onChange={(e) => setUser(e.target.value)}
               placeholder="User"
             />
           </div>
           <div>
             <input
               type="text"
-              value={description}
-              onChange={onDescChange}
+              onChange={(e) => setDesc(e.target.value)}
               placeholder="TO-DO Description"
             />
           </div>
@@ -79,7 +74,6 @@ const AddToDo = (props: Props) => {
             <label>
               Priority Level:
               <select
-                value={priority}
                 onChange={(e) => setPrio(e.target.value)}
               >
                 <option value="High">High</option>
@@ -91,12 +85,12 @@ const AddToDo = (props: Props) => {
           <br />
           <div className="create-footer">
             <input type="submit" value="Submit" />
-            <input type="button" value="Back" onClick={onBackBtnClickHnd} />
+            <input type="button" value="Back" />
           </div>
         </form>
       </div>
     </>
   );
-};
+}
 
-export default AddToDo;
+export default NewCreate
