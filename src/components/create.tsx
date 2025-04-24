@@ -13,6 +13,7 @@ type Props = {
 const AddToDo = (props: Props) => {
   const useListContext = useContext(ListContext);
   // track state in a function component.
+
   const [user, setUser] = useState("");
   const [description, setDesc] = useState("");
   const [priority, setPrio] = useState("High");
@@ -34,7 +35,7 @@ const AddToDo = (props: Props) => {
     e.preventDefault();
     const data: todo = {
       user: user,
-      id: new Date().toLocaleTimeString(),
+
       description: description,
       priority: priority,
       status: "In Progress",
@@ -45,10 +46,10 @@ const AddToDo = (props: Props) => {
     onBackBtnClickHnd();
 
     useListContext.setTodolist((c: any) => {
-      console.log("data",data)
+      // console.log("data", data)
       return [...c, data];
     });
-    
+
 
 
     // window.localStorage.setItem("list", JSON.stringify(data));

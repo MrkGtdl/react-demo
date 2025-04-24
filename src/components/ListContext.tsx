@@ -28,7 +28,7 @@ export const ListContextProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [])
 
   const setDataList = (q: any) => {
-    console.log("todoList", todoList)
+
     const data = JSON.stringify([...todoList, q]);
     window.localStorage.setItem("list", data);
     setTodolist([...todoList, q]);

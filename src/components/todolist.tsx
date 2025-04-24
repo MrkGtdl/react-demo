@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { todo } from "./todo.type";
 import ViewModal from "./viewModal";
 import { ListContext } from "./ListContext";
+import { Link } from "react-router-dom";
 
 type Props = {
   list: todo[];
@@ -34,8 +35,8 @@ const List = (props: Props) => {
           <th>Time</th>
           <th>Actions</th>
         </tr>
-        {/* {useListContext.todoList.map((c: any) => {
-          console.log("Test")
+        {useListContext.todoList.map((c: any) => {
+
           return (
             <tr>
               <td>{JSON.parse(JSON.stringify(c.user))}</td>
@@ -64,11 +65,13 @@ const List = (props: Props) => {
               </td>
             </tr>
           );
-        })} */}
+        })}
       </table>
-      {displayModal && dataToShow !== null && (
-        <ViewModal onClose={onCloseModal} data={dataToShow} />
-      )}
+      <Link to="/create">
+        {displayModal && dataToShow !== null && (
+          <ViewModal />
+        )}
+      </Link>
     </div>
   );
 };

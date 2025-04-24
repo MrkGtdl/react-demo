@@ -8,6 +8,7 @@ import NewCreate from "./newCreate";
 import EditRecord from "./edit";
 import "./css/home.style.css";
 import { ListContext } from "./ListContext";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const useListContext = useContext(ListContext);
@@ -18,7 +19,7 @@ const Home = () => {
   const addTodoClick = () => {
     setCreate(PageList.add);
   };
-  console.log(useListContext.todoList)
+
   // store the ata into the localstorage
   // const _setTodoList = (list: todo[]) => {
   // todoList(todolistContext);
@@ -78,7 +79,10 @@ const Home = () => {
           {createPage === PageList.list && (
             <>
               <div className="createbtn">
-                <input type="button" value="Create" onClick={addTodoClick} />
+                <Link to="/create">
+                  <input type="button" value="Create" onClick={addTodoClick} />
+                </Link>
+
                 <List
                   list={list}
                 // onDeleteClkHnd={deleteRecord}

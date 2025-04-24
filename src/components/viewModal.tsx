@@ -1,32 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './css/viewModal.style.css'
 import { todo } from './todo.type'
+import { ListContext } from "./ListContext";
+import { Link } from 'react-router-dom';
 
-type Props = {
-  onClose: () => void
-  data: todo
-}
 
-const ViewModal = (props: Props) => {
-  const { onClose, data } = props
+const ViewModal = () => {
+  const useListContext = useContext(ListContext);
+
   return (
-    <div id="myModal" className="modal">
-      <div className="modal-content">
-        <div className="view-header">
-          <span className="close" onClick={onClose}>
-            &times;
-          </span>
-          <div>
-            <h1>Summary</h1>
-          </div>
+    <>
+      <div className="view-card">
+        <div>
+          <article>
+            <header>
+              <h1>VIEW TODO</h1>
+            </header>
+          </article>
+        </div>
+        <div className="view-body">
+          <h1>{useListContext.todoList.map((c: any) => {
+            return <h1>{JSON.parse(JSON.stringify(c.user))}</h1>
+          })}</h1>
         </div>
 
-        <div>
-          <label htmlFor="">Description: {data.description}</label>
-        </div>
-      </div>
-    </div>
-  )
+
+      </div >
+    </>
+  );
 }
 
 export default ViewModal

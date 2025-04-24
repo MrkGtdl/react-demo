@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { todo } from "./todo.type";
-import "./css/create.style.css";
 import { ListContext } from "./ListContext";
-
+import { Link } from 'react-router-dom';
+import './css/create.style.css';
 
 function NewCreate() {
   const useListContext = useContext(ListContext);
 
   const listResult = window.localStorage.getItem("list");
-
+  console.log("listResult", JSON.parse(listResult).id)
   // const [list, setListTodo] = useState<todo[]>(listResult ? JSON.parse(listResult) : []);
   const [user, setUser] = useState("");
   const [description, setDesc] = useState("");
   const [priority, setPrio] = useState("High");
-
+  const [id, setId] = useState(0);
 
   const onSubmitbtnClkHnd = (e: any) => {
     e.preventDefault();
@@ -21,7 +21,8 @@ function NewCreate() {
 
     const data: todo = {
       user: user,
-      id: new Date().toLocaleTimeString(),
+      id: id + 1,
+      time: new Date().toLocaleTimeString(),
       description: description,
       priority: priority,
       status: "In Progress",
@@ -53,7 +54,13 @@ function NewCreate() {
   return (
     <>
       <div className="create-card">
-        <h2>Create to do?</h2>
+        <div>
+          <article>
+            <header>
+              <h1>WHAT TODO</h1>
+            </header>
+          </article>
+        </div>
         {/* <p>{JSON.stringify(list)}</p> */}
         <form onSubmit={onSubmitbtnClkHnd}>
           <div>
@@ -83,12 +90,14 @@ function NewCreate() {
             </label>
           </div>
           <br />
-          <div className="create-footer">
+          <div className="create-footer" >
             <input type="submit" value="Submit" />
-            <input type="button" value="Back" />
+            <Link to="/">
+              <input type="button" value="Back" />
+            </Link>
           </div>
-        </form>
-      </div>
+        </form >
+      </div >
     </>
   );
 }
