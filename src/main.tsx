@@ -13,7 +13,9 @@ import ViewModal from "./components/viewModal";
 const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <NotFound /> },
   { path: "/create", element: <NewCreate /> },
-  { path: "/view", element: <ViewModal /> },
+  { path: "/views", element: <ViewModal /> },
+  { path: '/view/:id', element: <ViewModal /> },
+  { path: '/edit/:id', element: <EditRecord /> },
 ])
 
 ReactDOM.render(

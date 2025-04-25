@@ -2,28 +2,25 @@ import React, { useContext, useEffect, useState } from 'react'
 import { todo } from "./todo.type";
 import { ListContext } from "./ListContext";
 import { Link } from 'react-router-dom';
+
 import './css/create.style.css';
 
 function NewCreate() {
   const useListContext = useContext(ListContext);
-
-  const listResult = window.localStorage.getItem("list");
-  console.log("listResult", JSON.parse(listResult).id)
-  // const [list, setListTodo] = useState<todo[]>(listResult ? JSON.parse(listResult) : []);
+  const uniqueId = Math.random().toString(35).slice(8);
   const [user, setUser] = useState("");
   const [description, setDesc] = useState("");
   const [priority, setPrio] = useState("High");
-  const [id, setId] = useState(0);
+
 
   const onSubmitbtnClkHnd = (e: any) => {
     e.preventDefault();
 
-
     const data: todo = {
+      id: uniqueId,
       user: user,
-      id: id + 1,
-      time: new Date().toLocaleTimeString(),
       description: description,
+      time: new Date().toLocaleTimeString(),
       priority: priority,
       status: "In Progress",
       checked: false,
@@ -31,8 +28,7 @@ function NewCreate() {
 
     useListContext.setTodolist(data)
     // setListTodo([...list, data])
-
-
+    e.target.reset(); // Clear the form after submissi
 
     // useListContext.setTodolist((c: any) => {
     //   console.log("c", c)
@@ -50,7 +46,7 @@ function NewCreate() {
     // });
 
   };
-  console.log("useListContext", useListContext)
+
   return (
     <>
       <div className="create-card">

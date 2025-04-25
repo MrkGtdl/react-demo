@@ -1,14 +1,21 @@
-/* #root{
-    padding-top: 20px;
-
-} */
+article{
+    background: blanchedalmond;
+    display: flex;
+    justify-content: center;
+ 
+}
 .edit-card{
-    /* border: 2px solid; */
-    padding: 10px 100px 10px 100px;
+    border: 1px solid;
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto; 
 
 }
 
 .edit-footer{
     display: flex;
     justify-content: space-evenly;
+}
+form{
+    padding: 10px;
 }

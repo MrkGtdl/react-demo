@@ -28,6 +28,7 @@ const List = (props: Props) => {
     <div>
       <table>
         <tr>
+
           <th>User</th>
           <th>Description</th>
           <th>Status</th>
@@ -39,23 +40,28 @@ const List = (props: Props) => {
 
           return (
             <tr>
+
               <td>{JSON.parse(JSON.stringify(c.user))}</td>
               <td>{JSON.parse(JSON.stringify(c.description))}</td>
               <td>{JSON.parse(JSON.stringify(c.status))}</td>
               <td>{JSON.parse(JSON.stringify(c.priority))}</td>
-              <td>{JSON.parse(JSON.stringify(c.id))}</td>
+              <td>{JSON.parse(JSON.stringify(c.time))}</td>
               <td>
                 <div>
-                  <input
-                    type="button"
-                    value="View"
-                  // onClick={() => viewRecord(list)}
-                  />
-                  <input
-                    type="button"
-                    value="Update"
-                  // onClick={() => onEdit(list)}
-                  />
+                  <Link to={`/view/${c.id}`}>
+                    <input
+                      type="button"
+                      value="View"
+                    // onClick={() => viewRecord(list)}
+                    />
+                  </Link>
+                  <Link to={`/edit/${c.id}`}>
+                    <input
+                      type="button"
+                      value="Update"
+                    // onClick={() => onEdit(list)}
+                    />
+                  </Link>
                   <input
                     type="button"
                     value="Delete"

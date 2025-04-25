@@ -1,21 +1,34 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { todo } from "./todo.type";
 import "./css/edit.style.css";
+import { ListContext } from "./ListContext";
+import { Link, useParams } from "react-router-dom";
 
-type Props = {
-  data: todo;
-  onBackBtnClickHnd: () => void;
-  onUpdateClkHnd: (data: todo) => void;
-};
+// type Props = {
+//   // data: todo;
+//   // onBackBtnClickHnd: () => void;
+//   // onUpdateClkHnd: (data: todo) => void;
+// };
 
-const EditRecord = (props: Props) => {
-  const { data, onBackBtnClickHnd, onUpdateClkHnd } = props;
-  const [description, setDesc] = useState(data.description);
-  const [user, setUser] = useState(data.user);
-  const [priority, setPrio] = useState(data.priority);
-  const [checked, setCheckbox] = useState(data.checked);
-  const [status, setStatus] = useState(data.status);
+const EditRecord = () => {
+  const useListContext = useContext(ListContext);
+  const [udata, setUdata] = useState<any>("");
+  const params = useParams();
+  useEffect(() => {
+    const item = useListContext.todoList.find(item => item.id === params.id);
+    setUdata(item);
 
+  }, [])
+
+
+  const [description, setDesc] = useState(udata.description);
+  const [user, setUser] = useState(udata.user);
+  const [priority, setPrio] = useState(udata.priority);
+  const [checked, setCheckbox] = useState(udata.checked);
+  const [status, setStatus] = useState(udata.status);
+  const [time, setTime] = useState(udata.time);
+
+  console.log(user)
   const handleChange = (e: any) => {
     setCheckbox(e.target.checked);
     if (e.target.checked) {
@@ -36,22 +49,31 @@ const EditRecord = (props: Props) => {
   const onSubmitbtnClkHnd = (e: any) => {
     e.preventDefault();
     const updateData: todo = {
-      id: data.id,
+      id: udata.id,
       description: description,
       status: status,
       user: user,
       priority: priority,
       checked: checked,
+      time: time
     };
-    onUpdateClkHnd(updateData);
-    onBackBtnClickHnd();
+
+    useListContext.setTodolist(updateData)
   };
 
   return (
     <>
       <div className="edit-card">
-        <h2>Update to do?</h2>
-        <form onSubmit={onSubmitbtnClkHnd}>
+        <div>
+          <article>
+            <header>
+              <h1>EDIT TODO</h1>
+            </header>
+          </article>
+        </div>
+        <form
+          onSubmit={onSubmitbtnClkHnd}
+        >
           <div>
             <input
               type="text"
@@ -61,7 +83,10 @@ const EditRecord = (props: Props) => {
             />
           </div>
           <div>
-            <input type="text" value={description} onChange={onDescChange} />
+            <input type="text"
+              value={description}
+              onChange={onDescChange}
+            />
           </div>
           <div>
             <label>
@@ -94,12 +119,9 @@ const EditRecord = (props: Props) => {
           <br />
           <div className="edit-footer">
             <input type="submit" value="Update" />
-            <input
-              type="button"
-              value="Back"
-              onClick={onBackBtnClickHnd}
-              placeholder="Update Description"
-            />
+            <Link to="/">
+              <input type="button" value="Back" />
+            </Link>
           </div>
         </form>
       </div>
