@@ -10,13 +10,13 @@ const ViewModal = () => {
   const useListContext = useContext(ListContext);
   const [data, setData] = useState<any>("");
   const params = useParams();
-  console.log("params", params.id)
+
   useEffect(() => {
     const item = useListContext.todoList.find(item => item.id === params.id);
     setData(item);
 
   }, [])
-  console.log(data)
+
   return (
     <>
       <div className="view-card">

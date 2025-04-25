@@ -12,23 +12,36 @@ import { Link, useParams } from "react-router-dom";
 
 const EditRecord = () => {
   const useListContext = useContext(ListContext);
-  const [udata, setUdata] = useState<any>("");
+  // const [uData, setUdata] = useState<any>();
+
+  const [id, setId] = useState<any>();
+  const [user, setUser] = useState<any>();
+  const [description, setDesc] = useState<any>();
+  const [priority, setPrio] = useState<any>();
+  const [checked, setCheckbox] = useState<any>();
+  const [status, setStatus] = useState<any>();
+  const [time, setTime] = useState<any>();
   const params = useParams();
   useEffect(() => {
     const item = useListContext.todoList.find(item => item.id === params.id);
-    setUdata(item);
+    if (item) {
+      setId(item.id);
+      setUser(item.user);
+      setDesc(item.description);
+      setPrio(item.priority);
+      setCheckbox(item.checked);
+      setStatus(item.status);
+      setTime(item.time);
+
+    }
+
+    console.log(item)
 
   }, [])
 
 
-  const [description, setDesc] = useState(udata.description);
-  const [user, setUser] = useState(udata.user);
-  const [priority, setPrio] = useState(udata.priority);
-  const [checked, setCheckbox] = useState(udata.checked);
-  const [status, setStatus] = useState(udata.status);
-  const [time, setTime] = useState(udata.time);
+  // console.log(uData)
 
-  console.log(user)
   const handleChange = (e: any) => {
     setCheckbox(e.target.checked);
     if (e.target.checked) {
@@ -38,18 +51,10 @@ const EditRecord = () => {
     }
   };
 
-  const onUserChange = (e: any) => {
-    setUser(e.target.value);
-  };
-
-  const onDescChange = (e: any) => {
-    setDesc(e.target.value);
-  };
-
   const onSubmitbtnClkHnd = (e: any) => {
     e.preventDefault();
     const updateData: todo = {
-      id: udata.id,
+      id: id,
       description: description,
       status: status,
       user: user,
@@ -57,7 +62,7 @@ const EditRecord = () => {
       checked: checked,
       time: time
     };
-
+    console.log(updateData)
     useListContext.setTodolist(updateData)
   };
 
@@ -78,14 +83,14 @@ const EditRecord = () => {
             <input
               type="text"
               value={user}
-              onChange={onUserChange}
+              onChange={(e) => setUser(e.target.value)}
               placeholder="User"
             />
           </div>
           <div>
             <input type="text"
               value={description}
-              onChange={onDescChange}
+              onChange={(e) => setDesc(e.target.value)}
             />
           </div>
           <div>
