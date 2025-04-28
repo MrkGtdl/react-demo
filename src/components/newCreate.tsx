@@ -1,17 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from "react";
 import { todo } from "./todo.type";
 import { ListContext } from "./ListContext";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
-import './css/create.style.css';
+import "./css/create.style.css";
 
 function NewCreate() {
   const useListContext = useContext(ListContext);
+  const navigate = useNavigate();
   const uniqueId = Math.random().toString(35).slice(8);
   const [user, setUser] = useState("");
   const [description, setDesc] = useState("");
   const [priority, setPrio] = useState("High");
-
 
   const onSubmitbtnClkHnd = (e: any) => {
     e.preventDefault();
@@ -26,25 +26,9 @@ function NewCreate() {
       checked: false,
     };
 
-    useListContext.setTodolist(data)
-    // setListTodo([...list, data])
-    e.target.reset(); // Clear the form after submissi
-
-    // useListContext.setTodolist((c: any) => {
-    //   console.log("c", c)
-
-    // });
-
-    // const _setTodoList = (data: todo[]) => {
-    //   todoList(data);
-    //   window.localStorage.setItem("list", JSON.stringify(data));
-    // };
-
-    // useListContext.setTodolist((c: any) => {
-    //   console.log("data", data)
-    //   return [...c, data];
-    // });
-
+    useListContext.setTodolist(data);
+    e.target.reset();
+    navigate("/");
   };
 
   return (
@@ -57,7 +41,6 @@ function NewCreate() {
             </header>
           </article>
         </div>
-        {/* <p>{JSON.stringify(list)}</p> */}
         <form onSubmit={onSubmitbtnClkHnd}>
           <div>
             <input
@@ -76,9 +59,7 @@ function NewCreate() {
           <div>
             <label>
               Priority Level:
-              <select
-                onChange={(e) => setPrio(e.target.value)}
-              >
+              <select onChange={(e) => setPrio(e.target.value)}>
                 <option value="High">High</option>
                 <option value="Medium">Medium</option>
                 <option value="Low">Low</option>
@@ -86,16 +67,16 @@ function NewCreate() {
             </label>
           </div>
           <br />
-          <div className="create-footer" >
+          <div className="create-footer">
             <input type="submit" value="Submit" />
             <Link to="/">
               <input type="button" value="Back" />
             </Link>
           </div>
-        </form >
-      </div >
+        </form>
+      </div>
     </>
   );
 }
 
-export default NewCreate
+export default NewCreate;

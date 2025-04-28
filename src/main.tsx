@@ -9,14 +9,16 @@ import NewCreate from "./components/newCreate";
 import EditRecord from "./components/edit";
 import NotFound from "./components/notFound";
 import ViewModal from "./components/viewModal";
+import DeleteRecord from "./components/delete";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <NotFound /> },
   { path: "/create", element: <NewCreate /> },
   { path: "/views", element: <ViewModal /> },
-  { path: '/view/:id', element: <ViewModal /> },
-  { path: '/edit/:id', element: <EditRecord /> },
-])
+  { path: "/view/:id", element: <ViewModal /> },
+  { path: "/edit/:id", element: <EditRecord /> },
+  { path: "/delete/:id", element: <DeleteRecord /> },
+]);
 
 ReactDOM.render(
   <React.StrictMode>

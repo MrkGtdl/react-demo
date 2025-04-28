@@ -19,51 +19,6 @@ const Home = () => {
   const addTodoClick = () => {
     setCreate(PageList.add);
   };
-
-  // store the ata into the localstorage
-  // const _setTodoList = (list: todo[]) => {
-  // todoList(todolistContext);
-
-  // window.localStorage.setItem("list", JSON.stringify(todolistContext));
-  // };
-
-  // useEffect(() => {
-  //   const listResult = window.localStorage.getItem("list");
-  //   if (listResult) {
-  //     _setTodoList(JSON.parse(listResult));
-  //   }
-  // }, []);
-
-  // const showListSection = () => {
-  //   setCreate(PageList.list);
-  // };
-  // const addData = (data: todo) => {
-  //   _setTodoList([...list, data]);
-  // };
-  // const deleteRecord = (data: todo) => {
-  //   const indexToDelete = list.indexOf(data);
-  //   const tempList = [...list];
-
-  //   tempList.splice(indexToDelete, 1);
-  //   _setTodoList(tempList);
-  // };
-
-  // const editData = (data: todo) => {
-  //   setCreate(PageList.edit);
-  //   setEdit(data);
-  // };
-
-  // // function for updating the data
-  // const updateData = (data: todo) => {
-  //   const filteredData = list.filter((x) => x.id === data.id)[0];
-
-  //   const indexedRecord = list.indexOf(filteredData);
-
-  //   const tempdata = [...list];
-
-  //   tempdata[indexedRecord] = data;
-  //   _setTodoList(tempdata);
-  // };
   return (
     <>
       <div className="card">
@@ -83,11 +38,7 @@ const Home = () => {
                   <input type="button" value="Create" onClick={addTodoClick} />
                 </Link>
 
-                <List
-                  list={list}
-                // onDeleteClkHnd={deleteRecord}
-                // onEdit={editData}
-                />
+                <List list={list} />
               </div>
             </>
           )}
@@ -99,12 +50,7 @@ const Home = () => {
             />
           )} */}
 
-          {createPage === PageList.add && (
-            <NewCreate
-            />
-          )}
-
-
+          {createPage === PageList.add && <NewCreate />}
 
           {/* {createPage === PageList.edit && (
             <EditRecord

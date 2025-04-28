@@ -6,24 +6,17 @@ import { Link } from "react-router-dom";
 
 type Props = {
   list: todo[];
-  // onDeleteClkHnd: (data: todo) => void;
-  // onEdit: (data: todo) => void;
 };
 
 const List = (props: Props) => {
   const useListContext = useContext(ListContext);
-  // console.log("useListContext", useListContext.todolist.map(c));
-  // const { list, onDeleteClkHnd, onEdit } = props;
   const { list } = props;
   const [displayModal, setDisplayModal] = useState(false);
-  const viewRecord = (data: todo) => {
-    setDataToshow(data);
-    setDisplayModal(true);
-  };
-  const onCloseModal = () => {
-    setDisplayModal(false);
-  };
+
   const [dataToShow, setDataToshow] = useState(null as todo | null);
+  const onDeleteClkHnd = (e: any) => {
+    useListContext.deleteTodolist(e);
+  };
   return (
     <div>
       <table>
@@ -32,7 +25,6 @@ const List = (props: Props) => {
           <th>Description</th>
           <th>Status</th>
           <th>Level</th>
-          {/* <th>Time</th> */}
           <th>Actions</th>
         </tr>
         {useListContext.todoList.map((c: any) => {
@@ -42,27 +34,20 @@ const List = (props: Props) => {
               <td>{JSON.parse(JSON.stringify(c.description))}</td>
               <td>{JSON.parse(JSON.stringify(c.status))}</td>
               <td>{JSON.parse(JSON.stringify(c.priority))}</td>
-              {/* <td>{JSON.parse(JSON.stringify(c.time))}</td> */}
+
               <td>
                 <div>
                   <Link to={`/view/${c.id}`}>
-                    <input
-                      type="button"
-                      value="View"
-                      // onClick={() => viewRecord(list)}
-                    />
+                    <input type="button" value="View" />
                   </Link>
                   <Link to={`/edit/${c.id}`}>
-                    <input
-                      type="button"
-                      value="Update"
-                      // onClick={() => onEdit(list)}
-                    />
+                    <input type="button" value="Update" />
                   </Link>
+
                   <input
                     type="button"
                     value="Delete"
-                    // onClick={() => onDeleteClkHnd(list)}
+                    onClick={() => onDeleteClkHnd(c.id)}
                   />
                 </div>
               </td>

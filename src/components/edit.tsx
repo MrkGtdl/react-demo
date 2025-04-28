@@ -2,18 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { todo } from "./todo.type";
 import "./css/edit.style.css";
 import { ListContext } from "./ListContext";
-import { Link, useParams } from "react-router-dom";
-
-// type Props = {
-//   // data: todo;
-//   // onBackBtnClickHnd: () => void;
-//   // onUpdateClkHnd: (data: todo) => void;
-// };
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const EditRecord = () => {
   const useListContext = useContext(ListContext);
-  // const [uData, setUdata] = useState<any>();
-
+  const navigate = useNavigate();
   const [id, setId] = useState<any>();
   const [user, setUser] = useState<any>();
   const [description, setDesc] = useState<any>();
@@ -48,36 +41,16 @@ const EditRecord = () => {
     e.preventDefault();
     const updateData: todo = {
       id: id,
+      user: user,
       description: description,
       status: status,
-      user: user,
       priority: priority,
       checked: checked,
       time: time,
     };
 
-    const filtereditem = useListContext.todoList.find(
-      (item) => item.id === params.id
-    );
-
-    const filteredData = useListContext.todoList.filter(
-      (x) => x.id === updateData.id
-    )[0];
-
-    const indexedRecord = useListContext.todoList.indexOf(filteredData);
-    const tempdata = [...useListContext.todoList];
-
-    tempdata[indexedRecord] = updateData;
-    useListContext.setTodolist((c: any) => {
-      console.log("c", c);
-      return [...c, updateData];
-    });
-    // useListContext.setTodolist(updateData);
-
-    // console.log("filteredData", filteredData);
-    // console.log("filtereditem", filtereditem);
-    // console.log("tempdata[indexedRecord]", tempdata[indexedRecord]);
-    // console.log("updateData", updateData);
+    useListContext.updateTodolist(updateData);
+    navigate("/");
   };
 
   return (
@@ -131,7 +104,6 @@ const EditRecord = () => {
                 onChange={handleChange}
               />
             </label>
-            {/* <p>Is "My Value" checked? {checked.toString()}</p> */}
           </div>
           <hr />
           <br />
