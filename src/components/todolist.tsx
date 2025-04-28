@@ -28,44 +28,41 @@ const List = (props: Props) => {
     <div>
       <table>
         <tr>
-
           <th>User</th>
           <th>Description</th>
           <th>Status</th>
           <th>Level</th>
-          <th>Time</th>
+          {/* <th>Time</th> */}
           <th>Actions</th>
         </tr>
         {useListContext.todoList.map((c: any) => {
-
           return (
             <tr>
-
               <td>{JSON.parse(JSON.stringify(c.user))}</td>
               <td>{JSON.parse(JSON.stringify(c.description))}</td>
               <td>{JSON.parse(JSON.stringify(c.status))}</td>
               <td>{JSON.parse(JSON.stringify(c.priority))}</td>
-              <td>{JSON.parse(JSON.stringify(c.time))}</td>
+              {/* <td>{JSON.parse(JSON.stringify(c.time))}</td> */}
               <td>
                 <div>
                   <Link to={`/view/${c.id}`}>
                     <input
                       type="button"
                       value="View"
-                    // onClick={() => viewRecord(list)}
+                      // onClick={() => viewRecord(list)}
                     />
                   </Link>
                   <Link to={`/edit/${c.id}`}>
                     <input
                       type="button"
                       value="Update"
-                    // onClick={() => onEdit(list)}
+                      // onClick={() => onEdit(list)}
                     />
                   </Link>
                   <input
                     type="button"
                     value="Delete"
-                  // onClick={() => onDeleteClkHnd(list)}
+                    // onClick={() => onDeleteClkHnd(list)}
                   />
                 </div>
               </td>
@@ -74,9 +71,7 @@ const List = (props: Props) => {
         })}
       </table>
       <Link to="/create">
-        {displayModal && dataToShow !== null && (
-          <ViewModal />
-        )}
+        {displayModal && dataToShow !== null && <ViewModal />}
       </Link>
     </div>
   );

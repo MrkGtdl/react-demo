@@ -23,7 +23,7 @@ const EditRecord = () => {
   const [time, setTime] = useState<any>();
   const params = useParams();
   useEffect(() => {
-    const item = useListContext.todoList.find(item => item.id === params.id);
+    const item = useListContext.todoList.find((item) => item.id === params.id);
     if (item) {
       setId(item.id);
       setUser(item.user);
@@ -32,15 +32,8 @@ const EditRecord = () => {
       setCheckbox(item.checked);
       setStatus(item.status);
       setTime(item.time);
-
     }
-
-    console.log(item)
-
-  }, [])
-
-
-  // console.log(uData)
+  }, []);
 
   const handleChange = (e: any) => {
     setCheckbox(e.target.checked);
@@ -60,10 +53,31 @@ const EditRecord = () => {
       user: user,
       priority: priority,
       checked: checked,
-      time: time
+      time: time,
     };
-    console.log(updateData)
-    useListContext.setTodolist(updateData)
+
+    const filtereditem = useListContext.todoList.find(
+      (item) => item.id === params.id
+    );
+
+    const filteredData = useListContext.todoList.filter(
+      (x) => x.id === updateData.id
+    )[0];
+
+    const indexedRecord = useListContext.todoList.indexOf(filteredData);
+    const tempdata = [...useListContext.todoList];
+
+    tempdata[indexedRecord] = updateData;
+    useListContext.setTodolist((c: any) => {
+      console.log("c", c);
+      return [...c, updateData];
+    });
+    // useListContext.setTodolist(updateData);
+
+    // console.log("filteredData", filteredData);
+    // console.log("filtereditem", filtereditem);
+    // console.log("tempdata[indexedRecord]", tempdata[indexedRecord]);
+    // console.log("updateData", updateData);
   };
 
   return (
@@ -76,9 +90,7 @@ const EditRecord = () => {
             </header>
           </article>
         </div>
-        <form
-          onSubmit={onSubmitbtnClkHnd}
-        >
+        <form onSubmit={onSubmitbtnClkHnd}>
           <div>
             <input
               type="text"
@@ -88,7 +100,8 @@ const EditRecord = () => {
             />
           </div>
           <div>
-            <input type="text"
+            <input
+              type="text"
               value={description}
               onChange={(e) => setDesc(e.target.value)}
             />
